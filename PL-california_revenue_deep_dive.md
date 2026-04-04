@@ -13,7 +13,7 @@
 |---|---|
 | Łączny przychód Kalifornii | 451 451 $ — #1 wśród wszystkich stanów |
 | Przeanalizowane zamówienia | 1 021 (2018–2021 pełne lata; 2022 = wyłącznie styczeń) |
-| Segmenty klientów | 4 (przychód + powtarzalność zakupów) |
+| Segmenty klientów | 4 segmenty podzielone na podstawie przychodu i powtarzalności zakupów |
 | Wskaźnik ponownych zakupów w oknie 90-dniowym | 3,75% (2018) → 7,06% (2021) — trend rosnący |
 | Udział przychodów od powracających klientów (2021-Q4) | 63% kwartalnego przychodu |
 
