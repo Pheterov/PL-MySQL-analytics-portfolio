@@ -23,15 +23,15 @@
 
 Kalifornia jest najlepiej performującym stanem w tym zbiorze danych e-commerce — pod względem łącznego przychodu, liczby zamówień i wolumenu klientów. Jednak powierzchowna interpretacja danych jest myląca w sposób, który odsłania fundamentalne zasady rzetelnej analizy.
 
-Segmentacja oparta na pełnej historii zakupowej klientów wskazuje na wyraźną zmianę: od 2021 roku nowe akwizycje przesunęły się w stronę niskouwartościowych, jednorazowych kupujących. Segment top_customer niemal zniknął z najnowszych kohort. Naturalny wniosek — że jakość akwizycji się pogarsza — wydaje się potwierdzony przez dane.
+Segmentacja oparta na pełnej historii zakupowej klientów wskazuje na wyraźną zmianę: od 2021 roku nowe akwizycje przesunęły się w stronę jednorazowych kupujących. Segment top_customer niemal zniknął z najnowszych kohort. Naturalny wniosek: "Jakość akwizycji się pogarsza" - jest jak najbardziej sensowny, dodatkowo potwierdzają to dane.
 
-**Ten wniosek jest błędny.**
+**Jednak ten wniosek jest błędny!**
 
-Jest artefaktem tenure bias: klienci pozyskani w 2018 roku mieli cztery lata na akumulację przychodu i ponownych zakupów, podczas gdy klienci z 2021 roku — zaledwie kilka miesięcy. Gdy każda kohorta dostaje to samo 90-dniowe okno obserwacji, kohorta 2021 wykazuje *najwyższy* wskaźnik wczesnych ponownych zakupów w całym zbiorze — niemal dwukrotność poziomu z 2018 roku. Jednocześnie dekompozycja przychodów ujawnia, że 63–70% kwartalnych przychodów w 2021 roku pochodzi od powracających klientów pozyskanych w latach wcześniejszych. Wzrost Kalifornii nie opiera się na kruchych jednorazowych zakupach. Jest napędzany dojrzewającą bazą klientów.
+Powstał w oparciu o tenure bias: klienci pozyskani w 2018 roku mieli cztery lata na akumulację przychodu i ponownych zakupów, podczas gdy klienci z 2021 roku — zaledwie kilka miesięcy. Gdy każda kohorta dostaje to samo 90-dniowe okno obserwacji, kohorta 2021 wykazuje *najwyższy* wskaźnik wczesnych ponownych zakupów w całym zbiorze — niemal dwukrotność poziomu z 2018 roku. Jednocześnie dekompozycja przychodów ujawnia, że 63–70% kwartalnych przychodów w 2021 roku pochodzi od powracających klientów pozyskanych w latach wcześniejszych. Wzrost Kalifornii nie opiera się na kruchych jednorazowych zakupach. Jest napędzany dojrzewającą bazą klientów.
 
-**Rzeczywista historia to nie spadek jakości, lecz rosnący biznes, którego najnowsi klienci nie mieli jeszcze czasu, żeby udowodnić swoją wartość.**
+**Właściwy wniosek to nie spadek jakości pozyskiwanych klientów lecz rosnący biznes, którego najnowsi klienci nie mieli jeszcze czasu żeby udowodnić swoją wartość.**
 
-> Analiza ta pokazuje, że nawet wieloetapowe, dobrze ustrukturyzowane badanie może prowadzić do błędnych wniosków, gdy nie kontroluje się błędu systematycznego w pomiarze. Pełny obraz wymaga zrozumienia czasu, jakości klientów, wzorców akwizycji, zachowań retencyjnych — i różnicy między tym, co dane *pokazują*, a tym, co *oznaczają*.
+> Analiza ta pokazuje, że nawet wieloetapowe, dobrze ustrukturyzowane podejście może prowadzić do błędnych wniosków, gdy nie kontroluje się błędu systematycznego w pomiarze. Pełny obraz wymaga zrozumienia czasu, jakości klientów, wzorców akwizycji, zachowań retencyjnych — i różnicy między tym, co dane *pokazują*, a tym, co *oznaczają*.
 
 ---
 
@@ -39,51 +39,51 @@ Jest artefaktem tenure bias: klienci pozyskani w 2018 roku mieli cztery lata na 
 
 ### Punkt wyjścia: przychód według stanu
 
-Każda analiza zaczyna się gdzieś. Naturalnym punktem wyjścia jest najbardziej widoczna metryka: łączny przychód w podziale na stany dostawy. Kalifornia prowadzi zdecydowanie — 451 451 $ przychodu. Nowy Jork na drugim miejscu z 312 377 $, Teksas z 164 949 $. Na dashboardzie wygląda to jak jasna odpowiedź na pytanie „Gdzie powinniśmy skoncentrować zasoby?"
+Każda analiza ma swój początek. Naturalnym punktem wyjścia jest najbardziej widoczna metryka: łączny przychód w podziale na stany. Kalifornia prowadzi zdecydowanie — 451 451 $ przychodu. Nowy Jork na drugim miejscu z 312 377 $, Teksas z 164 949 $. Na dashboardzie wygląda to jak jasna odpowiedź na pytanie „Gdzie powinniśmy alokować budżet?"
 
-Ale to jest właśnie **pułapka metryk próżności**. Pojedyncza zagregowana wartość składa cztery lata historii biznesowej w jedną liczbę. Nie powie nam, czy Kalifornia rośnie czy spada, czy klienci wracają, czy baza przychodowa jest strukturalnie zdrowa. Pokazuje jedynie wynik końcowy — nie to, jak rozgrywka przebiegała.
+Ale to jest właśnie **pułapka metryk próżności**. Pojedyncza zagregowana wartość składa cztery lata historii biznesowej w jedną liczbę. Nie powie nam, czy Kalifornia rośnie czy spada, czy klienci wracają, czy baza przychodowa jest oparta na solidnych fundamentach. Pokazuje jedynie wynik końcowy — nie daje wglądu w to co 'kryje się pod maską', spróbujmy odpowiedzieć w jaki sposób Kalifornia prowadzi biznes.
 
 <img width="1011" height="408" alt="image" src="https://github.com/user-attachments/assets/873a5cdc-8298-4fdd-b361-92cc181643e7" />
 
 ---
 
-## Pierwsza czerwona flaga: tajemniczy spadek przychodów
+## Pierwsza czerwona flaga: Ogromny spadek przychodów
 
 Logicznym kolejnym krokiem jest analiza wyników Kalifornii w czasie. Zestawienie rok do roku zdaje się ujawniać katastrofę: niemal 90-procentowy spadek przychodów między 2021 a 2022 rokiem — ze 148 729 $ do zaledwie 16 186 $.
 
-**Rzetelna analiza wymaga sceptycyzmu, zanim zareagujemy.** Spadek tej skali, z roku na rok i bez zewnętrznego kontekstu, jest statystycznie nieprawdopodobny w funkcjonującym biznesie. Pytanie nie brzmi jedynie „co się stało?" — lecz „czy to jest realne, czy coś jest nie tak z danymi?"
+**Rzetelna analiza wymaga sceptycyzmu przed reakcją.** Spadek tej skali, z roku na rok bez zewnętrznego kontekstu jest statystycznie nieprawdopodobny w funkcjonującym biznesie. Pytanie nie brzmi jedynie „co się stało?" — lecz „czy to jest realne czy może z danymi coś jest nie tak ?"
 
-Prosty rozkład na poziomie miesięcy natychmiast ujawnia prawdę: **zbiór danych za 2022 rok zawiera wyłącznie styczeń.** Pozorny krach nie jest porażką biznesową — to niekompletny zbiór danych porównywany z pełnym rokiem kalendarzowym. Jeden miesiąc przychodu niemal zawsze będzie wyglądał gorzej niż dwanaście.
+Prosty rozkład na poziomie miesięcy daje nam natychmiastową odpowiedź: **zbiór danych z roku 2022 zawiera wyłącznie styczeń.** Pozorny krach nie jest porażką biznesową — to niekompletny zbiór danych porównywany z pełnym rokiem kalendarzowym. Jeden miesiąc przychodu niemal zawsze będzie wyglądał gorzej w porównaniu z dwunastoma pełnymi miesiącami.
 
 <img width="1022" height="495" alt="image" src="https://github.com/user-attachments/assets/95790aec-74d3-4c2d-9cd6-950c52c8d48a" />
 
-Ten moment ilustruje fundamentalną zasadę analityczną: **nigdy nie wyciągaj wniosków z liczb, których nie zwalidowałeś.** Błędny raport, który trafi do niewłaściwego odbiorcy, może uruchomić błędną alokację zasobów, fałszywy alarm lub nieuzasadnioną pewność siebie. Kompletność danych to nie detal techniczny — to ryzyko biznesowe.
+Ten moment ilustruje fundamentalną zasadę analityczną: **nigdy nie wyciągaj wniosków z liczb, których nie zweryfikowałeś.** Błędny raport, może doprowadzić do błędnej alokacji zasobów. Kompletność danych to nie detal techniczny — to ryzyko biznesowe.
 
 > **Decyzja analityczna:** rok 2022 został wykluczony ze wszystkich analiz porównawczych. Jednak zamówienia ze stycznia 2022 pozostają w obliczeniach dotyczących klientów — klient pozyskany w grudniu 2021, który złożył ponowne zamówienie w styczniu 2022, musi być liczony jako klient powracający. Rozróżnienie między „wykluczyć z raportowania" a „wykluczyć z obliczeń" ma znaczenie.
 
 ---
 
-## Głębsza analiza: co napędza wzrost
+## Głębsza analiza: Co napędza wzrost
 
 Po potwierdzeniu integralności danych analiza przechodzi do zrozumienia dynamiki wzrostu Kalifornii. Metryki miesiąc do miesiąca i rok do roku — przychód, liczba zamówień, unikalni klienci, sprzedane sztuki, średnia wartość zamówienia, głębokość rabatów — rysują obraz silnego wzrostu do końca 2021 roku.
 
-Wrzesień 2021 pokazuje +71,85% wzrostu przychodu rok do roku, niemal podwojenie sprzedanych sztuk (+87%) i wzrost liczby unikalnych klientów o +58%. Listopad 2021 przynosi jeszcze bardziej wyraźne wyniki: +111% wzrostu przychodu, przy tej samej liczbie unikalnych klientów co rok wcześniej.
+Wrzesień 2021 pokazuje +71,85% wzrostu przychodu rok do roku, niemal podwojenie sprzedanych sztuk (+87%) i wzrost liczby unikalnych klientów o +58%. Listopad 2021 przynosi jeszcze bardziej satysfakcjonujące wyniki: +111% wzrostu przychodu, przy tej samej liczbie unikalnych klientów co rok wcześniej.
 
-Według konwencjonalnych miar to wyniki godne nagłówka. Ale pojawia się kluczowe pytanie: **jakich klientów pozyskujemy w tych miesiącach wzrostu?**
+To genialne wyniki jednak powinniśmy postawić kluczowe pytanie: **Jakich klientów pozyskujemy ?**
 
-Wolumen łatwo zmierzyć. Jakość jest trudniejsza — i znacznie ważniejsza. Biznes pozyskujący tysiąc niskouwartościowych, jednorazowych kupujących jest w fundamentalnie innej sytuacji niż biznes pozyskujący stu klientów o wysokiej wartości i powtarzalności zakupów, nawet jeśli krótkoterminowy przychód wygląda identycznie.
+Wolumen łatwo zmierzyć. Jakość to miara trudniejsza do weryfikacji i oszacowania - jednocześnie znacznie ważniejsza. Biznes pozyskujący tysiąc klientów jednorazowych kupujących na niewielką kwotę jest w fundamentalnie innej sytuacji niż biznes pozyskujący stu klientów ktrórzy kupują na wysokie kwoty i wracają, nawet jeśli krótkoterminowy przychód wygląda identycznie.
 
 > **Kluczowa decyzja analityczna:** zamiast akceptować wzrost wolumenu jako sukces, analiza przechodzi na perspektywę jakości klientów. Pytanie zmienia się z „o ile urośliśmy?" na „z kim urośliśmy?" Ta zmiana perspektywy oddziela raportowanie opisowe od faktycznej analityki biznesowej.
 
 ---
 
-## Segmentacja klientów: kto generuje realną wartość?
+## Segmentacja klientów: Kto generuje realną wartość?
 
 ### Budowa modelu segmentacji
 
-Aby wyjść poza przychód jako przybliżenie wartości, klienci zostali sklasyfikowani w czterech segmentach na podstawie dwóch obserwowalnych wymiarów: **łączny przychód historyczny** i **udokumentowana powtarzalność zakupów** (zamówienia > 1).
+Aby wyjść poza przychód jako przybliżenie wartości, klienci zostali podzieleni na cztery segmenty na podstawie dwóch wymiarów: **łączny przychód historyczny** i **udokumentowana powtarzalność zakupów** (ilość zamówień > 1).
 
-Próg przychodowy 1 000 $ wynika z empirycznego rozkładu przychodów klientów z Kalifornii (n = 565, po wykluczeniu 12 klientów pozyskanych wyłącznie w styczniu 2022): mediana wynosi ~390 $, a 75. percentyl ~1 050 $, co czyni 1 000 $ uzasadnionym przybliżeniem granicy górnego kwartyla.
+Próg przychodu $1 000 wynika z empirycznego rozkładu przychodów klientów Kalifornii (n = 565, po wykluczeniu 12 klientów pozyskanych wyłącznie w styczniu 2022): mediana wynosi ~$390, a 75. percentyl ~$1 050, co czyni $1 000 uzasadnionym przybliżeniem granicy górnego kwartyla.
 
 | Segment | Definicja | Liczba | Przychód | % łącznego przychodu |
 |---|---|---|---|---|
@@ -92,15 +92,15 @@ Próg przychodowy 1 000 $ wynika z empirycznego rozkładu przychodów klientów 
 | `loyal_low_value` | Kupujący wielokrotnie, przychód < 1 000 | 173 (31%) | 72 032 $ | 16% |
 | `low_value` | Kupujący jednorazowo, przychód < 1 000 | 233 (41%) | 47 754 $ | 11% |
 
-Top customers — 21% bazy klientów — odpowiadają za 57% łącznego przychodu Kalifornii. Ta koncentracja jest fundamentem analitycznym: jeśli pipeline segmentu top_customer wyschnie, przychód podąży za nim.
+Top customers — 21% bazy klientów — odpowiadają za 57% łącznego przychodu Kalifornii. Ta koncentracja jest fundamentem analitycznym: jeśli pipeline segmentu top_customer zacznie spadać, przychód z dużym prawdopodobieństwem przyjmie ten sam kierunek.
 
-> **Nota o przejrzystości metryk:** popularna formuła CLV (średnia_wartość_zamówienia × częstotliwość_zakupów × czas_życia_w_miesiącach) algebraicznie upraszcza się do łącznego przychodu we wszystkich przypadkach. Użycie łącznego przychodu bezpośrednio jest prostsze i bardziej uczciwe — pozwala uniknąć wrażenia modelu predykcyjnego, gdy metryka jest czysto opisowa.
+> **Nota o przejrzystości metryk:** popularna formuła CLV (średnia wartość zamówienia × częstotliwość zakupów × 'żywotność') algebraicznie upraszcza się do łącznego przychodu we wszystkich przypadkach. Użycie łącznego przychodu bezpośrednio jest prostsze i bardziej uczciwe — pozwala uniknąć wrażenia modelu predykcyjnego.
 
 ---
 
-## Pozorny sygnał ostrzegawczy: skład segmentów w czasie
+## Pozorny sygnał ostrzegawczy: Skład segmentów w czasie
 
-Zastosowanie modelu segmentacji do kohort akwizycyjnych w podziale na lata ujawnia to, co początkowo wygląda na najważniejsze odkrycie w tym zbiorze danych.
+Zastosowanie modelu segmentacji do kohort akwizycyjnych w PODZIALE NA LATA ujawnia coś co początkowo wygląda na najważniejsze odkrycie w tym zbiorze danych.
 
 | Okres | Łącznie | Top | Ryzykowni | Lojalni | Niskiej wartości | Top % |
 |--------|---------|-----|-----------|---------|------------------|-------|
@@ -115,24 +115,24 @@ Wzorzec jest dramatyczny: udział top_customer spada z 45% w 2018 do 5,40% w 202
 
 <img width="1152" height="616" alt="image" src="https://github.com/user-attachments/assets/816a5074-b2ec-4279-bff4-a7c28a2b94a3" />
 
-**Instynktowny wniosek:** jakość akwizycji w Kalifornii się załamała. Pipeline klientów o wysokiej wartości wysycha. Przychód jest zagrożony.
+**Instynktowny wniosek:** jakość akwizycji w Kalifornii się załamała. Pipeline klientów o wysokiej wartości praktycznie znika. Przychód jest zagrożony.
 
-**Ten wniosek wydaje się przekonujący. Jest również błędny.**
+**W obliczu metryk i wykresów tn wniosek wydaje się przekonujący.Jednak również jest błędny.**
 
 ---
 
-## Pułapka: tenure bias
+## Pułapka: Tenure bias - model oblieczeń w oparciu o podział na lata faworyzuje klientów którzy rozpoczęli swoją historię zakupową wcześniej
 
-### Dlaczego segmentacja jest myląca
+### Dlaczego segmentacja jest myląca - wyjaśnienie
 
-Segmentacja przypisuje etykiety na podstawie *pełnej* historii zakupowej klienta — każdego zamówienia, jakie kiedykolwiek złożył, aż do grudnia 2021. To tworzy strukturalną przewagę starszych klientów:
+Segmentacja przypisuje etykiety na podstawie *pełnej* historii zakupowej klienta — każdego zamówienia jakie kiedykolwiek złożył aż do grudnia 2021. To tworzy strukturalną przewagę starszych klientów:
 
 - Klient pozyskany w **2018 roku** miał **~48 miesięcy** na akumulację przychodu i wykazanie powtarzalności zakupów
-- Klient pozyskany w **Q4 2021** miał **~2 miesiące lub mniej**
+- Klient pozyskany w **Q4 2021** miał **2 miesiące lub mniej**
 
-Próg top_customer wymaga jednocześnie przychodu ≥ 1 000 ORAZ więcej niż jednego zamówienia. Klient z 2021 roku mógł złożyć zamówienie na 500 $ z pełnym zamiarem powrotu — ale dane po prostu nie sięgają wystarczająco daleko, żeby to zaobserwować. Zakwalifikowanie tego klienta jako „low_value" na podstawie niekompletnej obserwacji tworzy *artefakt pomiarowy*, który podszywa się pod wniosek biznesowy.
+Próg top_customer wymaga jednocześnie przychodu ≥ 1 000 ORAZ więcej niż jednego zamówienia. Klient z 2021 roku mógł złożyć zamówienie na 500 $ z zamiarem powrotu, ale dane po prostu nie sięgają wystarczająco daleko, żeby to stwierdzić co w konsekwencji prowadzi do zakwalifikowania klienta jako „low_value". Na podstawie niekompletnej obserwacji powstaje *artefakt pomiarowy*, który podszywa się pod wniosek biznesowy.
 
-> **To jest tenure bias:** systematyczna błędna klasyfikacja nowszych klientów jako niskouwartościowych, spowodowana nierównymi oknami obserwacji — nie rzeczywistymi różnicami w zachowaniu klientów.
+> **To jest tenure bias:** systematyczna błędna klasyfikacja nowszych klientów jako niskowartościowych, spowodowana nierównymi oknami obserwacji — nie rzeczywistymi różnicami w zachowaniu klientów.
 
 ### Konsekwencje przeoczenia tego błędu
 
@@ -149,9 +149,9 @@ Droga od błędu pomiarowego do błędnej alokacji strategicznej jest krótka i 
 
 ## Trzy niezależne testy
 
-### Test 1: dekompozycja przychodów — skąd faktycznie pochodzi wzrost?
+### Test 1: Dekompozycja przychodów — skąd faktycznie pochodzi wzrost?
 
-Aby zrozumieć, czy wzrost w 2021 roku jest faktycznie kruchy, przychody kwartalne zostały rozłożone na dwa strumienie: przychód od **nowo pozyskanych klientów** (pierwsze zamówienie w danym kwartale) versus przychód od **klientów powracających** (pozyskanych w wcześniejszych okresach).
+Aby zrozumieć, czy wzrost w 2021 roku jest faktycznie kruchy, przychody kwartalne zostały rozłożone na dwa strumienie: przychód od **nowo pozyskanych klientów** (pierwsze zamówienie w danym kwartale) versus przychód od **klientów powracających** (pozyskanych we wcześniejszych okresach).
 
 | kwartał | przychód_bieżący | przychód_poprzedni_rok | zmiana_% | przychód_nowi | przychód_powracający | nowi_% |
 |---------|------------------|------------------------|----------|---------------|----------------------|--------|
@@ -174,13 +174,13 @@ Aby zrozumieć, czy wzrost w 2021 roku jest faktycznie kruchy, przychody kwartal
 
 <img width="1062" height="548" alt="image" src="https://github.com/user-attachments/assets/28172b34-5202-40e1-b44c-4741ec4ead28" />
 
-Trend jest jednoznaczny. W 2018 roku niemal 100% przychodu pochodzi od nowych klientów — naturalnie, biznes dopiero startuje. Do Q1 2021 **70,3% przychodu pochodzi od klientów powracających.** W Q4 2021 klienci powracający generują 30 222 $ — więcej niż łączny kwartalny przychód w dowolnym kwartale 2018 roku.
+Trend jest jednoznaczny. W 2018 roku niemal 100% przychodu pochodzi od nowych klientów co jest logicznie uzasadnione - biznes dopiero startuje. Do Q1 2021 **70,3% przychodu pochodzi od klientów powracających.** W Q4 2021 klienci powracający generują 30 222 $ — więcej niż łączny przychód w dowolnym kwartale 2018 roku.
 
-**To bezpośrednio zaprzecza hipotezie o „kruchym wzroście".** Przychód Kalifornii w 2021 roku nie opiera się na jednorazowych zakupach niskouwartościowych nowicjuszy. Jest napędzany przez skumulowaną wartość klientów pozyskanych w poprzednich latach, którzy wracają. Biznes dojrzewa, nie słabnie.
+**To bezpośrednio zaprzecza hipotezie o „kruchym wzroście".** Przychód Kalifornii w 2021 roku nie opiera się na jednorazowych zakupach klientów z segmentu low_value. Jest napędzany przez skumulowaną wartość klientów segmentu top_customer pozyskanych w poprzednich latach, którzy wracają. Biznes dojrzewa, nie słabnie.
 
-### Test 2: retencja według segmentu — czy top customers faktycznie utrzymują się lepiej?
+### Test 2: Retencja według segmentu — Czy top customers z nami zostają ?
 
-Wskaźniki retencji obliczono per zdarzenie zakupowe z korektą right-censoring — każde okno obserwacji (30, 90, 180 dni) uwzględnia wyłącznie zdarzenia zakupowe, dla których pełne okno mieści się w dostępnych danych. Zapobiega to karaniu zamówień z końca 2021 roku za niewystarczający czas obserwacji.
+Wskaźniki retencji obliczono per zdarzenie zakupowe z korektą right-censoring — każde okno obserwacji (30, 90, 180 dni) uwzględnia wyłącznie zdarzenia zakupowe, dla których pełne okno mieści się w dostępnych danych. Zapobiega to uwzględnianiu zamówień z końca 2021 roku z niewystarczającym czasem obserwacji i wyciąganiu na tej podstawie błędnych wniosków.
 
 | Segment | Kwalifikujący się (180d) | Powrócili | Wskaźnik | Kwalifikujący się (90d) | Powrócili | Wskaźnik | Kwalifikujący się (30d) | Powrócili | Wskaźnik |
 |---|---|---|---|---|---|---|---|---|---|
@@ -192,16 +192,16 @@ Wskaźniki retencji obliczono per zdarzenie zakupowe z korektą right-censoring 
 Wyniki ujawniają obraz bardziej złożony niż prosta hierarchia:
 
 - W oknie **180-dniowym** top_customers utrzymują się 1,5× lepiej niż loyal_low_value (21,21% vs 13,89%)
-- W oknie **90-dniowym** top_customers prowadzą 1,4× (10,54% vs 7,73%)
+- W oknie **90-dniowym** top_customers nadal przodują 1,4× (10,54% vs 7,73%)
 - W oknie **30-dniowym** wzorzec **się odwraca**: loyal_low_value utrzymują się lepiej (3,51% vs 2,24%)
 
 To sugeruje różne kadencje zakupowe, nie prostą hierarchię „lepsi/gorsi". Klienci loyal_low_value dokonują częstszych, mniejszych zakupów — zachowanie szybkiego ponownego zamówienia. Top customers dokonują większych, bardziej przemyślanych zakupów w dłuższych odstępach. Oba wzorce reprezentują realną wartość biznesową, ale wymagają różnych strategii retencyjnych.
 
-Zerowa retencja dla segmentów low_value i risky_high_value to tautologia definicyjna, nie wynik analityczny: oba segmenty są zdefiniowane jako kupujący jednorazowo (zamówienia = 1), więc z definicji nie mają kolejnego zamówienia.
+Zerowa retencja dla segmentów low_value i risky_high_value to tautologia definicyjna, nie wynik analityczny. Oba segmenty są zdefiniowane jako kupujący jednorazowo (zamówienia = 1), więc z definicji nie mają kolejnego zamówienia.
 
-### Test 3: wskaźnik ponownych zakupów kohortowych — test rozstrzygający
+### Test 3: wskaźnik ponownych zakupów kohortowych — Test rozstrzygający
 
-Zamiast klasyfikować klientów na podstawie pełnej historii, każda kohorta akwizycyjna otrzymuje to samo **90-dniowe okno** na wykazanie ponownych zakupów. Klient „powrócił", jeśli złożył jakiekolwiek kolejne zamówienie w Kalifornii w ciągu 90 dni od pierwszego zakupu. Uwzględniono wyłącznie klientów pozyskanych co najmniej 90 dni przed granicą zbioru danych (25.01.2022) — dlatego dla 2021 roku raportowanych jest 85 klientów, a nie 111 jak na wykresie 4.
+Zamiast klasyfikować klientów na podstawie pełnej historii, każda kohorta akwizycyjna otrzymuje to samo **90-dniowe okno** oraz **180-dniowe okno** na wykazanie ponownych zakupów. Klient „powrócił", jeśli złożył jakiekolwiek kolejne zamówienie w Kalifornii w ciągu 90 lub 180 dni od pierwszego zakupu. Uwzględniono wyłącznie klientów pozyskanych co najmniej 90 dni dla grupy 90d oraz 180 dni dla grupy 180d przed granicą zbioru danych (25.01.2022) — dlatego dla 2021 roku raportowanych jest odpowiednio 85 oraz 59 klientów, a nie 111 jak na wykresie 4.
 
 | Rok akwizycji | Pozyskani klienci | Powrócili (180d) | Wskaźnik (180d) | Powrócili (90d) | Wskaźnik (90d) | Wykluczeni klienci |
 |---|---|---|---|---|---|---|
@@ -219,27 +219,27 @@ Warto zwrócić uwagę na dodatkowy aspekt — kolejną pułapkę analityczną �
 
 ---
 
-## Wniosek końcowy: oddzielenie sygnału od artefaktu
+## Wniosek końcowy: Oddzielenie sygnału od artefaktu
 
-Analiza zaczyna się od pojedynczej wartości przychodowej i metodycznie odsłania kolejne warstwy. Po drodze napotyka klasyczną pułapkę analityczną — i ją omija.
+Analiza zaczyna się od pojedynczej wartości przychodowej i metodycznie odsłania kolejne warstwy. Po drodze napotyka i przedstawia klasyczną pułapkę analityczną oraz środki ostrożności które należy zachować aby nie wyciągać błędnych wniosków.
 
 ### Co jest realne
 
-- **Kalifornia prowadzi w przychodach** (451 450 $), a jej wzrost od 2018 do 2021 roku jest autentyczny i konsekwentny
-- **Top customers są nieproporcjonalnie wartościowi** — 21% klientów generuje 57% przychodu, z 1,4–1,5× wyższą retencją długoterminową
+- **Kalifornia prowadzi w przychodach** ($451 450), a jej wzrost od 2018 do 2021 roku jest autentyczny i konsekwentny
+- **Top customers są filarem biznesu** — 21% klientów generuje 57% przychodu, z 1,4–1,5× wyższą retencją długoterminową
 - **Biznes dojrzewa** — przychód od klientów powracających rośnie z 0% do 63–70% kwartalnego przychodu do 2021 roku, co jest strukturalnie pozytywne
 - **Najnowsze kohorty wykazują rosnące zaangażowanie** — wskaźnik ponownych zakupów w oknie 90-dniowym podwaja się między 2018 a 2021 rokiem
 - **Różne segmenty mają różne kadencje zakupowe** — klienci loyal_low_value kupują częściej w oknie 30-dniowym; top_customers utrzymują zaangażowanie w oknach 90–180-dniowych
 
 ### Co jest artefaktem
 
-- **„Załamanie" akwizycji top_customer w 2021 roku** — tenure bias, nie realny spadek jakości. Nowsi klienci nie mieli wystarczająco dużo czasu, żeby przekroczyć progi przychodowe i zakupowe
-- **Zmiana składu segmentów** — wizualnie dramatyczna na wykresach 3 i 4, ale oczekiwana przy nierównych oknach obserwacji
+- **„Załamanie" akwizycji top_customer w 2021 roku** — tenure bias, nierealny spadek jakości. Nowsi klienci nie mieli wystarczająco dużo czasu, żeby przekroczyć progi przychodowe i zakupowe
+- **Zmiana składu segmentów** — wizualnie dramatyczna na wykresach 3 i 4, jednak przy nierównych oknach obserwacji jest naturalną konsekwencją wynikającą z faworyzowania klientów z dłuższą historią zakupową
 - **Jakakolwiek narracja „sygnału ostrzegawczego" sugerująca zagrożenie przychodów Kalifornii** — przekonująca na pierwszy rzut oka, ale empirycznie obalona przez kontrolowaną analizę kohortową
 
 ### Implikacje strategiczne
 
-- **Pielęgnuj kohorty z 2021 roku** — wykazują najwyższy wczesny wskaźnik ponownych zakupów. Komunikacja posprzedażowa, programy lojalnościowe i kampanie reaktywacyjne powinny celować w tych klientów, zanim staną się nieaktywni
+- **Na podstawie kohort z 2021 roku** — najwyższy wczesny wskaźnik ponownych zakupów. Komunikacja posprzedażowa, programy lojalnościowe i kampanie reaktywacyjne powinny celować w tych klientów, zanim staną się nieaktywni
 - **Monitoruj 90-dniowy wskaźnik ponownych zakupów jako wskaźnik wyprzedzający** — jest mniej obciążony błędem systematycznym niż skład segmentów i bardziej praktyczny niż łączne przychody z pełnej historii
 - **Traktuj bazę klientów powracających jako aktywo** — 63% przychodu w Q4 2021 pochodzi od klientów powracających. Ta baza jest silnikiem przychodowym; jej ochrona ma większe znaczenie niż optymalizacja nowej akwizycji
 
@@ -247,17 +247,17 @@ Analiza zaczyna się od pojedynczej wartości przychodowej i metodycznie odsłan
 
 ---
 
-## Dlaczego to ma znaczenie: sposób myślenia analityka
+## Dlaczego to ma znaczenie: Sposób myślenia analityka
 
 Ten projekt demonstruje coś ważniejszego niż biegłość w SQL: **gotowość do obalenia własnej hipotezy.**
 
-Analiza segmentacyjna buduje spójny, dobrze poparty argument, że jakość akwizycji w Kalifornii spada. Wykresy są przekonujące. Tabele się zgadzają. Narracja ma intuicyjny sens. Przeszłaby większość przeglądów.
+Analiza segmentacyjna buduje spójny, dobrze poparty argument o spadku jakość akwizycji w Kalifornii. Wykresy są przekonujące, tabele się zgadzają, narracja ma intuicyjny sens. Przeszłaby większość przeglądów.
 
-Jest również błędna.
+Niestety jak wykazaliśmy jest błędna i szkodliwa.
 
-Błąd nie tkwi w SQL. Zapytania zwracają poprawne wyniki. Błąd tkwi w ramie analitycznej — zastosowaniu retrospektywnej segmentacji (która nagradza staż) do pytania o zmianę w czasie (które wymaga kontrolowanego porównania). Wychwycenie tego wymaga wyjścia poza analizę, zakwestionowania metodologii i zbudowania niezależnego testu zdolnego sfalsyfikować wniosek.
+Błąd nie tkwi w SQL - zapytania zwracają poprawne wyniki. Błąd tkwi w ramie analitycznej — zastosowaniu retrospektywnej segmentacji (która nagradza staż) do pytania o zmianę w czasie (które wymaga kontrolowanego porównania). Wychwycenie tego wymaga wyjścia poza analizę, zakwestionowania metodologii i zbudowania niezależnego testu zdolnego sfalsyfikować wniosek.
 
-Praca techniczna — Window Functions, CTEs, right-censoring, analiza kohortowa — służy temu sposobowi myślenia. Narzędzia mają znaczenie. Ale wiedza o tym, kiedy narzędzia Cię zwodzą, ma znaczenie większe.
+Praca techniczna — Window Functions, CTEs, right-censoring, analiza kohortowa — służy temu sposobowi myślenia. Narzędzia mają znaczenie, ale wiedza o tym, kiedy narzędzia Cię zwodzą ma jeszcze większe znaczenie.
 
 ---
 
