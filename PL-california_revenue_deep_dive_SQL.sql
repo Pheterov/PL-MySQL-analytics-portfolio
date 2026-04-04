@@ -1,20 +1,19 @@
 Projekt: Portfolio Analityczne SQL — E-commerce
 🛠️ Baza danych: supersales — zmodyfikowana przez KajoData, MySQL 8.0+
 👤 Autor: Piotr Rzepka
-📝 Opis: Portfolio analityczne SQL — e-commerce
 
 																					"Historia przychodów Kalifornii" 
 
 /*
 
-Projekt powstał jako ćwiczenie z analizy danych, z wsparciem AI na etapie code review 
+Projekt powstał jako ćwiczenie z analizy danych, ze wsparciem AI na etapie code review 
 i iteracyjnych poprawek. Metodologia analityczna (kontrola tenure bias, 
 right-censoring, dekompozycja przychodów) została wypracowana w ramach mentoringu. 
 Cały kod SQL jest mojego autorstwa, napisany i zweryfikowany na działającej bazie danych.
 
 Analiza SQL danych e-commerce z lat 2018–2022 ujawnia, że Kalifornia prowadzi w łącznych przychodach.
-Wstępna segmentacja sugerowała spadek jakości akwizycji od 2021 roku, jednak analiza kontrolowana
-kohortowo wykazała, że był to artefakt tenure bias — najnowsze kohorty w rzeczywistości wykazują
+Wstępna segmentacja sugerowała spadek jakości akwizycji od 2021 roku, jednak analiza
+kohortowa wykazała, że był to artefakt tenure bias. Najnowsze kohorty w rzeczywistości wykazują
 rosnące wskaźniki wczesnych ponownych zakupów. Wzrost przychodów w 2021 roku był napędzany przez
 dojrzewającą bazę klientów powracających.
 */
@@ -22,10 +21,10 @@ dojrzewającą bazę klientów powracających.
 /*================================================================================================================================================================================================
 📋 Założenia dotyczące danych i konwencje stosowane w całej analizie:
 
-   1. COALESCE(p.product_price, 0) — wartości NULL cen produktów traktowane są jako zero (darmowe produkty lub brakujące dane).
-      COALESCE(op.position_discount, 0) — wartości NULL rabatów traktowane są jako brak zastosowanego rabatu.
+   1. COALESCE(p.product_price, 0) — wartości NULL cen produktów traktowane są jako zero (darmowe produkty lub brakujące dane)
+      COALESCE(op.position_discount, 0) — wartości NULL rabatów traktowane są jako brak zastosowanego rabatu
       Są to świadome założenia biznesowe. Jeśli NULL oznacza w rzeczywistości „wartość nieznana", przychody
-      mogą być zawyżone. Powinno to zostać zwalidowane z właścicielem danych przed użyciem produkcyjnym.
+      mogą być zawyżone.
 
    2. Wartości delivery_state są traktowane jako czyste i jednolicie sformatowane (np. brak zapisu małymi literami
       'california' ani końcowych spacji). Wstępna weryfikacja SELECT DISTINCT delivery_state została wykonana,
@@ -59,7 +58,7 @@ Fragment wyniku zapytania:
 | New York		 | 312 376,98 | 		562 |
 | Texas			 | 164 948,68 | 		487 |
 
-Ta podstawowa metryka tak naprawdę nic nam nie mówi... Czy na podstawie takiego raportu możemy podjąć świadomą i trafną decyzję?
+Ta podstawowa metryka tak naprawdę nic nam nie mówi... Czy na podstawie takiego raportu możemy podjąć świadomą i zyskowną decyzję?
 Zidentyfikowaliśmy jedynie, który region jest najbardziej dochodowy, ale spróbujmy pójść głębiej i krok po kroku ustalić — dlaczego.
 Co dalej? Dobrze byłoby zobaczyć wyniki w czasie.
 ================================================================================================================================================================================================*/
@@ -92,20 +91,20 @@ Fragment wyniku zapytania:
 | 2019 | California     |  93 307,09 |        198 |
 | 2018 | California     |  71 302,47 |        171 |
 
-Wynik jest podejrzany... natychmiast podnosi czerwoną flagę.
+Wynik jest podejrzany... natychmiast powinna zapalić się czerwona lampka.
 Między 2018 a 2021 Kalifornia radziła sobie świetnie, a potem w 2022... nagły spadek przychodów o ~90%.
 Tak drastyczna zmiana jest wysoce nieprawdopodobna z perspektywy biznesowej.
 
 TO ZAPYTANIE JEST KLASYCZNYM PRZYKŁADEM TEGO, JAK MYLĄCE WNIOSKI MOGĄ WYNIKAĆ Z MYŚLENIA TYPU „po prostu weź średnią".
 
-📝 Co zamierzam zrobić dalej:
+📝 Kolejne kroki:
 - zwalidować kompletność danych i dodać kolumnę miesięcy do wyniku
 - ponownie sprawdzić logikę agregacji
 - dostosować filtrowanie, aby porównać z innymi regionami
 ================================================================================================================================================================================================*/
 
 /*================================================================================================================================================================================================
-2️⃣.1️⃣ Badanie czerwonej flagi w danych YoY
+2️⃣.1️⃣ Badanie przyczyny spadku przychodu (wynik poprzedniej kwerendy)
 ================================================================================================================================================================================================*/
 	
 SELECT
@@ -139,7 +138,7 @@ Możemy kontynuować pracę, koncentrując się na Kalifornii.
 ================================================================================================================================================================================================*/
 
 /*================================================================================================================================================================================================
-3️⃣ Wyniki Kalifornii miesiąc do miesiąca (MoM) — podstawowy wgląd
+3️⃣ Wyniki Kalifornii miesiąc do miesiąca (MoM)
 ================================================================================================================================================================================================*/
 
 SELECT
@@ -173,9 +172,9 @@ Fragment wyniku zapytania:
 | 2021 |    10 | California     |  15 769,12 |         40 |               40 | 394,23 |
 | 2021 |     9 | California     |  20 248,41 |         32 |               30 | 632,76 |
 
-Wykorzystaliśmy trendy miesiąc do miesiąca, aby potwierdzić kompletność danych za każdy wcześniejszy miesiąc.
+Wykorzystaliśmy trendy miesiąc do miesiąca, aby potwierdzić kompletność danych w każdym poprzedzającym miesiącu.
 To dobry moment, żeby się zatrzymać i zdefiniować, co właściwie chcemy mierzyć i jak chcemy do tego podejść:
-	- uwzględnianie każdej warianty metryki może generować szum zamiast wglądu
+	- uwzględnianie każdej metryki może generować szum zamiast wglądu
 	- metryki powinny być logicznie spójne i łatwe do interpretacji — wrzucanie wszystkiego do jednej tabeli nie jest właściwym podejściem
 	- struktura będzie ewoluować — dodawanie i usuwanie kolumn jest częścią procesu analitycznego
 	- celem nie jest natychmiastowe przedstawienie ostatecznej odpowiedzi, lecz jasne pokazanie ścieżki rozumowania, która do niej prowadzi
@@ -242,7 +241,7 @@ Fragment wyniku zapytania:
 | California     | 2021 |     9 |            20 248,41 |         11 782,73 |         32 |                   19 |               30 |                         19 | 632,76 |        620,14 |
 
 📝 Uwagi i refleksje
-   Tabela jest dość szeroka, głównie przez rozwlekłe nazwy kolumn. Ponieważ na tym etapie służy celom analitycznym wewnętrznym, możemy ją uprościć w kolejnych krokach.
+   Tabela jest dość szeroka, głównie przez długie nazwy kolumn. Ponieważ na tym etapie służy celom analitycznym, możemy ją uprościć w kolejnych krokach.
    Możemy też zacząć oceniać, które metryki są naprawdę przydatne, a które mogą być zbędne. Na tym etapie delivery_state nie jest już potrzebne, ponieważ analiza koncentruje się wyłącznie na Kalifornii.
 
    Następny krok: zidentyfikować metryki, które faktycznie wyjaśniają dynamikę przychodów.
@@ -385,7 +384,7 @@ Te tabele służą nam w przyszłych obliczeniach — nie będziemy ich raportow
 Liczba kolumn może na pierwszy rzut oka przytłaczać. Dlaczego więc strukturyzujemy to w ten sposób,
 skoro wcześniej mówiliśmy o redukcji ilości danych na rzecz łatwiejszego podejmowania decyzji zamiast generowania szumu?
 
-Bo metryki bez kontekstu są mylące — co pokazaliśmy już w pierwszym zapytaniu tej prezentacji.
+Bo metryki bez kontekstu są mylące — co pokazaliśmy już w drugim zapytaniu tej prezentacji.
 Porównanie pojedynczej metryki często wymaga spojrzenia na kilka powiązanych wartości.
 
 Zmiana procentowa typu -5% sama w sobie niewiele znaczy. Czy oznacza spadek z 1 000 klientów do 950, czy z 20 klientów do 19?
@@ -399,11 +398,11 @@ każdego ruchu zamiast reagować na odizolowane liczby.
 Oczywiście to tylko część historii.
 
 Z perspektywy biznesowej nie wszyscy klienci są równi. Utrata jednego klienta o wysokiej wartości i powtarzalności
-zakupów może boleć znacznie bardziej niż utrata kilku jednorazowych kupujących o niskiej wartości.
+zakupów może nieść ze sobą znacznie bardziej odczuwalne konsekwencje niż utrata kilku jednorazowych kupujących z segmentu low_value.
 
 Dokładnie w tym kierunku pójdziemy dalej.
 
-Na marginesie — rzeczy warte uwagi wyłącznie z tego krótkiego fragmentu:
+Na marginesie — rzeczy warte uwagi wyłącznie na podstawie tego krótkiego fragmentu kodu:
 
 - W przypadku września wzrost przychodów można skorelować ze wzrostem bazy klientów w porównaniu z rokiem poprzednim.
   +71% przychodu, +68% zamówień, +57% klientów, niemal podwojone sprzedane sztuki. Sugeruje to, że wzrost
@@ -412,13 +411,13 @@ Na marginesie — rzeczy warte uwagi wyłącznie z tego krótkiego fragmentu:
 - Natomiast listopad 2021 to szczególnie interesujący przypadek.
   Taka sama liczba klientów, nieco mniej zamówień, ale przychód ponad podwojony (+111%) — silny kandydat do głębszej analizy.
 
-Mimo że listopad 2021 prezentuje interesującą anomalię, nie wnosi bezpośrednio do wyjaśnienia ogólnych wyników Kalifornii.
+Mimo że listopad 2021 prezentuje interesującą anomalię, nie przyczynia się do wyjaśnienia ogólnych wyników Kalifornii.
    Jest więc celowo wykluczony z głębszej analizy na tym etapie i oznaczony jako potencjalna analiza uzupełniająca.
 
    Zanim przejdziemy dalej, warto zauważyć, że anomalia tej skali (+111% YoY przy mniejszej liczbie zamówień)
-   może być spowodowana pojedynczym zamówieniem odstającym. Aby to wykluczyć, należy sprawdzić rozkład wartości
-   zamówień w tym miesiącu (min, max, mediana, odchylenie standardowe). Jeśli jedno zamówienie odpowiada za
-   nieproporcjonalny udział przychodu, wskaźnik wzrostu jest mylący. Ta walidacja jest odroczona, ale rekomendowana.
+   może być spowodowana pojedynczym zamówieniem odstającym lub wyjątkowo słabym wynikiem w poprzednim roku.
+   Aby to wykluczyć, należy sprawdzić rozkład wartości zamówień w tym miesiącu (min, max, mediana, odchylenie standardowe).
+   Jeśli jedno zamówienie odpowiada za nieproporcjonalny udział przychodu, wskaźnik wzrostu jest mylący. Ta walidacja jest odroczona, ale rekomendowana.
 
 Uwagi i refleksje
    Obecnie wszystkie nasze działania odbywają się na poziomie stanu, ale w miarę postępu będziemy analizować je bardziej szczegółowo.
@@ -427,9 +426,9 @@ Uwagi i refleksje
 
 /*================================================================================================================================================================================================
 5️⃣ Segmentacja klientów według historycznego przychodu i powtarzalności zakupów
-Cel: Sklasyfikowanie każdego klienta do segmentu biznesowego na podstawie łącznego historycznego
+Cel: Klasyfikacja każdego klienta do segmentu biznesowego na podstawie łącznego historycznego
          przychodu i udokumentowanej powtarzalności zakupów.
-Kontekst: Nie wszyscy klienci są równi. To zapytanie identyfikuje, kto generuje realną wartość,
+Kontekst: Nie wszyscy klienci są tak samo wartościowi. To zapytanie identyfikuje, kto generuje realną wartość,
             łącząc skumulowany wydatek z zaobserwowaną lojalnością (kupujący wielokrotnie vs jednorazowo).
             Segmenty: top_customer, risky_high_value, loyal_low_value, low_value.
  
@@ -444,8 +443,8 @@ Decyzje dotyczące zakresu:
        Jednak zamówienia z 2022 SĄ uwzględnione w podstawowych obliczeniach przychodu/powtarzalności — klient pozyskany
        w 2021, który zamówił ponownie w styczniu 2022, jest poprawnie liczony jako kupujący wielokrotnie.
  
-    2. Wszystkie metryki wykorzystują wyłącznie zamówienia dostarczone do Kalifornii. Niemal wszyscy klienci z Kalifornii
-       (574 z 577) zamawiali również do innych stanów. Ich profil ograniczony do Kalifornii może zaniżać
+    2. Wszystkie metryki wykorzystują wyłącznie zamówienia w obrębie Kalifornii. Niemal wszyscy klienci z Kalifornii
+       (574 z 577) zamawiali również w innych stanach. Ich profil ograniczony do Kalifornii może zaniżać
        rzeczywiste zaangażowanie. Jest to świadoma decyzja o zakresie, udokumentowana dla przejrzystości.
  
     3. Metryka segmentacji to łączny historyczny przychód — nie „model CLV". Popularna formuła CLV
@@ -505,10 +504,10 @@ Wynik zapytania — podsumowanie segmentów:
    przychodu Kalifornii, stanowiąc jedynie 21% bazy klientów.
  
    risky_high_value (39, 7%): kupujący jednorazowo z przychodem >= 1 000. Wysoki wydatek, ale brak
-   udowodnionej lojalności — strukturalnie kruchy segment.
+   udowkumentowanej lojalności — strukturalnie kruchy segment.
  
    loyal_low_value (173, 31%): kupujący wielokrotnie z przychodem < 1 000. Konsekwentne zaangażowanie,
-   ale niższy indywidualny wkład.
+   ale niższy wkład.
  
    low_value (233, 41%): kupujący jednorazowo z przychodem < 1 000. Największy segment liczebnie,
    najmniejszy pod względem wkładu przychodowego.
@@ -516,7 +515,7 @@ Wynik zapytania — podsumowanie segmentów:
    Ta segmentacja ma znane ograniczenie: jest obciążona na korzyść starszych klientów, którzy mieli więcej
    czasu na akumulację przychodu i ponownych zakupów. Klient pozyskany w 2018 miał ~4 lata na budowanie
    historii, podczas gdy klient pozyskany pod koniec 2021 miał zaledwie kilka miesięcy. Zapytanie 5️⃣.4️⃣
-   adresuje to bezpośrednio za pomocą analizy wskaźnika ponownych zakupów kontrolowanej kohortowo.
+   adresuje to bezpośrednio za pomocą analizy wskaźnika ponownych zakupów w kontrolowanych kohortach.
 ================================================================================================================================================================================================*/
  
 /*================================================================================================================================================================================================
@@ -524,7 +523,7 @@ Wynik zapytania — podsumowanie segmentów:
 Cel: Zrozumienie, jakiego rodzaju klienci byli pozyskiwani w poszczególnych kwartałach.
 Kontekst: Segmenty oparte są na pełnej historii klienta (zapytanie 5️⃣).
             Pokazuje to, czy klienci o wysokiej wartości byli pozyskiwani w okresach wzrostu.
-            Granularność kwartalna zapewnia bardziej stabilne liczebności niż miesięczna,
+            Granularność kwartalna zapewnia bardziej stabilne wyniki dla realiów e-commerce niż miesięczna,
             jednocześnie umożliwiając sensowne porównanie YoY.
  
 ⚠️ Rok 2022 wykluczony — klienci pozyskani w styczniu 2022 mieli niemal zerową szansę na ponowny zakup.
@@ -609,10 +608,10 @@ Fragment wyniku zapytania:
    Dominującym segmentem staje się low_value (kupujący jednorazowo z przychodem < 1 000).
  
 KLUCZOWE ZASTRZEŻENIE — tenure bias:
-   Ten wzorzec jest wizualnie uderzający, ale w pewnym stopniu oczekiwany. Klienci pozyskani w 2018
+   Ten wzorzec jest wizualnie uderzający, ale całkowicie oczekiwany. Klienci pozyskani w 2018
    mieli ~4 lata na budowanie przychodu i wykazanie powtarzalności zakupów. Klienci pozyskani w Q4 2021
-   mieli co najwyżej ~2 miesiące. Część tych klientów „low_value" ostatecznie przekroczy próg 1 000
-   i dokona ponownych zakupów — po prostu nie mieli jeszcze na to czasu.
+   mieli co najwyżej ~3 miesiące. Część tych klientów „low_value"  nie miała szansy na przekroczenie progu $1 000
+   i dokonania ponownych zakupów pomimo nawet najszczerszych chęci powrotu.
  
    Zapytanie 5️⃣.4️⃣ kontroluje ten błąd systematyczny, porównując kohorty w identycznych oknach 90-dniowych.
    Zmiana w składzie segmentów jest realna w danych, ale jej interpretacja wymaga ostrożności.
@@ -621,14 +620,13 @@ KLUCZOWE ZASTRZEŻENIE — tenure bias:
 /*================================================================================================================================================================================================
 5️⃣.2️⃣ Struktura przychodów: nowi vs powracający klienci × jakość akwizycji
 Cel: Rozłożenie kwartalnego przychodu na wkład od nowo pozyskanych klientów
-         vs klientów powracających, z krzyżowym odniesieniem do jakości nowych akwizycji.
+         vs klientów powracających, z odniesieniem do jakości nowych akwizycji.
 Kontekst: Oryginalna wersja tego zapytania porównywała łączny miesięczny przychód z segmentami
             nowych klientów — ale większość przychodu w danym okresie pochodzi od klientów pozyskanych WCZEŚNIEJ.
             To porównanie tworzyło fałszywą korelację. Ta wersja rozdziela dwa strumienie przychodowe,
             abyśmy mogli ocenić faktyczne zależności.
  
-            „Nowe" zamówienie definiowane jest jako zamówienie złożone w tym samym miesiącu
-            co pierwsze zamówienie klienta w Kalifornii.
+            „Nowe" zamówienie definiowane jest jako pierwsze zamówienie klienta w Kalifornii.
 ================================================================================================================================================================================================*/
 
 -- customer_first uwzględnia WSZYSTKICH klientów (również pozyskanych w 2022), ponieważ potrzebujemy ich
