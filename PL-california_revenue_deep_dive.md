@@ -19,7 +19,7 @@
 
 ---
 
-## Streszczenie dla zarządu
+## Wnioski
 
 Kalifornia jest najlepiej performującym stanem w tym zbiorze danych e-commerce — pod względem łącznego przychodu, liczby zamówień i wolumenu klientów. Jednak powierzchowna interpretacja danych jest myląca w sposób, który odsłania fundamentalne zasady rzetelnej analizy.
 
