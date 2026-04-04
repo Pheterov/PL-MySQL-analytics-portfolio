@@ -3,7 +3,7 @@
 > ~5 000 zamówień, 2018–2022, syntetyczny zbiór danych e-commerce zmodyfikowany na potrzeby analityczne.
 ---
 ## 👀 Dla Rekruterów — Dlaczego Warto Zajrzeć
-| Co | W skrócie |
+|  | W skrócie |
 |------|---------|
 | **Dopasowanie do roli** | Junior+ / Mid Analityk Danych, Analityk BI, Analityk E-commerce |
 | **Poziom SQL** | Zaawansowany: wielotabelowe JOINy, CTEs, Window Functions, analiza kohortowa |
