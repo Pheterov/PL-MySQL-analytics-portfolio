@@ -21,9 +21,9 @@
 | **Metryki biznesowe** | Przychód, AoV , Wskaźnik Retencji, LTV Klienta, Pareto |
  
 ## 🗄️ Schemat (Widok Uproszczony)
-orders ─┬── order_positions ─── products ─── product_groups
-        ├── order_ratings
-        └── order_returns
+orders ─┬── order_positions ─── products ─── product_groups  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── order_ratings  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── order_returns  
 <details>
 <summary>📋 Kliknij, żeby zobaczyć pełną strukturę tabel</summary>
 | Tabela | Kluczowe kolumny |
