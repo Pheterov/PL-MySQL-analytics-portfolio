@@ -26,7 +26,7 @@ orders ─┬── order_positions ─── products ─── product_groups
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── order_returns 
 
 <details>
-<summary>📋 Click for full table structure</summary>
+<summary>📋 Click for full table structure</summary> 
 
 | Tabela | Kolumny |
 |-------|-------------|
