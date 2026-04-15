@@ -23,9 +23,11 @@
 ## 🗄️ Schemat (Widok Uproszczony)
 orders ─┬── order_positions ─── products ─── product_groups  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── order_ratings  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── order_returns  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── order_returns 
+
 <details>
-<summary>📋 Kliknij, żeby zobaczyć pełną strukturę tabel</summary>
+<summary>📋 Click for full table structure</summary>
+
 | Tabela | Kolumny |
 |-------|-------------|
 | `orders` | order_id, customer_id, order_date, shipping_date, shipping_mode |
@@ -34,7 +36,6 @@ orders ─┬── order_positions ─── products ─── product_groups
 | `product_groups` | group_id, category, product_group |
 | `order_ratings` | order_id, rating |
 | `order_returns` | order_id, next_order_free |
-</details>
 
 ## 🏆 Przykładowy Wynik (Gotowy do Interpretacji)
 **Miesięczny rozkład przychodów: nowi vs powracający klienci**
