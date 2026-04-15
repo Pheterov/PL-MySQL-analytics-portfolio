@@ -490,12 +490,13 @@ ORDER BY total_revenue DESC;
 /*================================================================================================================================================================================================
 Wynik zapytania — podsumowanie segmentów:
  
-| customer_segment | customers_cnt | total_revenue | avg_revenue | avg_orders | min_revenue | max_revenue |
-|------------------|---------------|---------------|-------------|------------|-------------|-------------|
-| top_customer     |           120 |    256 290,76 |    2 135,76 |       2,67 |    1 029,17 |    8 349,89 |
-| risky_high_value |            39 |     72 972,35 |    1 871,09 |       1,00 |    1 011,70 |    4 006,21 |
-| loyal_low_value  |           173 |     72 032,08 |      416,37 |       2,40 |       20,02 |      996,58 |
-| low_value        |           233 |     47 754,43 |      204,95 |       1,00 |        3,98 |      976,83 |
+| customer_id | orders_cnt | historical_revenue  | avg_order_value  | is_repeat_customer | customer_segment |
+|-------------|------------|---------------------|------------------|--------------------|------------------|
+| 457         | 2          | 8349.89             | 4174.95          | 1                  | top_customer     |
+| 433         | 2          | 7301.73             | 3650.86          | 1                  | top_customer     |
+| 450         | 4          | 7182.77             | 1795.69          | 1                  | top_customer     |
+| 280         | 3          | 5848.69             | 1949.56          | 1                  | top_customer     |
+| 579         | 2          | 5182.58             | 2591.29          | 1                  | top_customer     |
  
 📝 Uwagi i refleksje
    Po wykluczeniu 12 klientów pozyskanych wyłącznie w styczniu 2022 mamy 565 klientów z Kalifornii.
