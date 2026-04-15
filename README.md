@@ -37,6 +37,9 @@ orders ─┬── order_positions ─── products ─── product_groups
 | `order_ratings` | order_id, rating |
 | `order_returns` | order_id, next_order_free |
 
+
+</details>
+
 ## 🏆 Przykładowy Wynik (Gotowy do Interpretacji)
 **Miesięczny rozkład przychodów: nowi vs powracający klienci**
 *Daty w formacie MM-RR dla zwięzłości.*
