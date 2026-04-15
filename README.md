@@ -26,7 +26,7 @@ orders ─┬── order_positions ─── products ─── product_groups
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── order_returns  
 <details>
 <summary>📋 Kliknij, żeby zobaczyć pełną strukturę tabel</summary>
-| Tabela | Kluczowe kolumny |
+| Tabela | Kolumny |
 |-------|-------------|
 | `orders` | order_id, customer_id, order_date, shipping_date, shipping_mode |
 | `order_positions` | order_id, product_id, item_quantity, position_discount |
