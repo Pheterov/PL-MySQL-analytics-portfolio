@@ -22,8 +22,8 @@
  
 ## 🗄️ Schemat (Widok Uproszczony)
 orders ─┬── order_positions ─── products ─── product_groups
-              ├── order_ratings
-              └── order_returns
+        ├── order_ratings
+        └── order_returns
 <details>
 <summary>📋 Kliknij, żeby zobaczyć pełną strukturę tabel</summary>
 | Tabela | Kluczowe kolumny |
