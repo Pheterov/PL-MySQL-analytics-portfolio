@@ -18,7 +18,7 @@
 | **Podstawy** | `JOIN`, `GROUP BY`, `CASE WHEN`, `COALESCE`, `NULLIF` |
 | **Window Functions** | `LAG`, `LEAD`, `DENSE_RANK`, `NTILE`, `MIN() OVER` |
 | **Zaawansowane** | Wielopoziomowe CTEs, porównania MoM, logika kohortowa |
-| **Metryki biznesowe** | Przychód, AoV , Wskaźnik Retencji, LTV Klienta, Pareto |
+| **Metryki biznesowe** | Przychód, AoV , Wskaźnik Retencji, Pareto |
  
 ## 🗄️ Schemat (Widok Uproszczony)
 orders ─┬── order_positions ─── products ─── product_groups  
