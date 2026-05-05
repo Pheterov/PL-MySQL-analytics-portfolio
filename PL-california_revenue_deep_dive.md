@@ -257,7 +257,7 @@ Niestety jak wykazaliśmy jest błędna i szkodliwa.
 
 Błąd nie tkwi w SQL - zapytania zwracają poprawne wyniki. Błąd tkwi w ramie analitycznej — zastosowaniu retrospektywnej segmentacji (która nagradza staż) do pytania o zmianę w czasie (które wymaga kontrolowanego porównania). Wychwycenie tego wymaga wyjścia poza analizę, zakwestionowania metodologii i zbudowania niezależnego testu zdolnego sfalsyfikować wniosek.
 
-Praca techniczna — Window Functions, CTEs, right-censoring, analiza kohortowa — służy temu sposobowi myślenia. Narzędzia mają znaczenie, ale wiedza o tym, kiedy narzędzia Cię zwodzą ma jeszcze większe znaczenie.
+Praca techniczna — Window Functions, CTEs, right-censoring, analiza kohortowa — służy temu sposobowi myślenia. Narzędzia mają znaczenie, ale wiedza o tym, kiedy narzędzia Cię zwodzą ma jeszcze większą wartość.
 
 ---
 
